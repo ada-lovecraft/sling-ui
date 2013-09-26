@@ -1,6 +1,6 @@
 {
   "author": "Jeremy Dowell",
-  "name": "AIngular",
+  "name": "sling-ui",
   "description": "Angular directives from ArchitectingInnovation",
   "version": "0.1.0",
   "homepage": "http://codevinsky.gibhub.io/aingular",
@@ -24,6 +24,9 @@
 
     "bower": "~1.0",
 
-    "jade-angularjs-brunch": "~0.0.5"
+    "jade-angularjs-brunch": "~1.1.1",
+    "groundskeeper": "0.1.4",
+
+    "after-brunch": "0.0.3"
   }
 }

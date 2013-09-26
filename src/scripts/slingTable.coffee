@@ -1,4 +1,4 @@
-angular.module 'sling.ui'
+angular.module('sling.ui')
 .directive 'slingTable', ($filter) ->
 	return {
 		restrict: 'ACE'
@@ -8,17 +8,18 @@ angular.module 'sling.ui'
 			tablePager: '='
 			itemsPerPage: '='
 		}
-		templateUrl: '/templates/sling-table.html'
+		templateUrl: '/sling.ui/templates/sling-table.html'
 		transclude: true
 		link: (scope, elem, attrs) ->
 
 			scope.currentPage = 0
 
 			console.log 'slingTable recognized'
+			
 			console.log scope.tableOrder
 			scope.pagedData = null
 			scope.sort =
-				column: scope.tableConfig.order[0]
+				column: null
 				descending: false
 
 			console.log scope.sort
@@ -43,18 +44,19 @@ angular.module 'sling.ui'
 				console.log 'start:', start, 'end:', end
 				scope.pagedData = $filter('slice')(angular.copy(scope.rawData), start, end)
 				console.log 'pagedData:', scope.pagedData
-				_.each scope.pagedData, (val,index,collection) ->
-					_.each val, (v, i, c) ->
-						if _.has scope.tableConfig.display[i], 'format'
+				angular.forEach(scope.pagedData, (val,index,collection) ->
+					angular.forEach val, (v, i, c) ->
+						if angular.isDefined(scope.tableConfig.display[i].format)
 							console.log 'found format function'
 							collection[index][i] = scope.tableConfig.display[i].format(scope.pagedData[index][i])
+				,scope.pagedData)
 				console.log 'pagedData:', scope.pagedData
 
 
 			scope.getSortedClass = (column) ->
 				sort = scope.sort
 				if column == sort.column
-					return 'sorted'
+					return 'sling-sorted'
 				else
 					return ''
 

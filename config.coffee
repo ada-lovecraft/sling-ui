@@ -11,7 +11,7 @@ exports.config =
   files:
     javascripts:
       joinTo:
-        'sling-ui.js': /^src/
+        'sling-ui-dev.js': /^src/
       order:
         before: ['src/scripts/aingular.coffee']
 
@@ -26,8 +26,15 @@ exports.config =
   plugins:
     jade:
       pretty: yes # Adds pretty-indentation whitespaces to output (false by default)
-      doctype: "xml"
     jade_angular:
-      single_file: true
-      single_file_name:'sling-ui.tpls.js'
+      single_file: false
+      angular_module:
+        namespace: 'sling.ui'
+        predefined: true
+      output_directory: '/'
+      locals: {}
+    afterBrunch: [ 
+      "groundskeeper < dist/sling-ui-dev.js > dist/sling-ui.js"
+    ]
+
   minify: true

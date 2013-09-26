@@ -1,0 +1,9 @@
+.sling-sorted {
+  background-color: #004040;
+  color: white;
+  font-weight: 800;
+}
+.sling-interactable {
+  cursor: pointer;
+}
+
