@@ -1,0 +1,10 @@
+{
+  "name": "aingular",
+  "repo": "codevinsky/aingular",
+  "version": "0.1.0",
+  "main": ["dist/sling-ui.js",".dist/sling-ui.tpls.js",".dist/sling-ui.css"],
+  "ignore": [
+    "**/.*",
+    "src"
+  ]
+}

@@ -1,0 +1,16 @@
+div(ng-show="tablePager")
+	ul.pager
+		li.previous.disabled
+			a.sling-interactable(ng-click="previousPage()") &larr; Previous
+		li.next 
+			a.sling-interactable(ng-click="nextPage()") &rarr; Next
+table.table
+	thead
+		tr
+			th(ng-repeat="column in tableConfig.order", ng-click='switchColumn(column)',ng-class="getSortedClass(column)", class="{{tableConfig.display[column].className}} sling-interactable"){{tableConfig.display[column].label}}
+				span(ng-show="sort.column == column")
+					.glyphicon.glyphicon-chevron-up(ng-hide="sort.descending")
+					.glyphicon.glyphicon-chevron-down(ng-show="sort.descending")
+	tbody
+		tr(ng-repeat="data in pagedData")
+			td(ng-repeat="column in tableConfig.order", ng-class="getSortedClass(column)") {{ data[column] }}
