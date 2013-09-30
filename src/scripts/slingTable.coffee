@@ -6,13 +6,14 @@ angular.module('sling.ui')
 			tableData: '='
 			tableConfig: '='
 			tablePager: '='
+			tableSearch: '='
 			itemsPerPage: '='
 		}
 		templateUrl: '/sling.ui/templates/sling-table.html'
 		transclude: true
 		link: (scope, elem, attrs) ->
 
-			scope.currentPage = 0
+			scope.currentPage = 1
 
 			console.log 'slingTable recognized'
 			
@@ -33,16 +34,16 @@ angular.module('sling.ui')
 					sort.column = column
 					sort.descending = false
 
-				scope.currentPage = 0
+				scope.currentPage = 1
 				scope.sortTable()
 
 			scope.sortTable = ->
 				sort = scope.sort
 				scope.rawData = $filter('orderBy')(scope.rawData,sort.column,sort.descending)
-				start = scope.currentPage * scope.itemsPerPage
+				start = (scope.currentPage-1) * scope.itemsPerPage
 				end =  start + scope.itemsPerPage 
 				console.log 'start:', start, 'end:', end
-				scope.pagedData = $filter('slice')(angular.copy(scope.rawData), start, end)
+				scope.pagedData = $filter('slice')($filter('filter')(angular.copy(scope.rawData),scope.slingSearch), start, end)
 				console.log 'pagedData:', scope.pagedData
 				angular.forEach(scope.pagedData, (val,index,collection) ->
 					angular.forEach val, (v, i, c) ->
@@ -52,6 +53,13 @@ angular.module('sling.ui')
 				,scope.pagedData)
 				console.log 'pagedData:', scope.pagedData
 
+
+			scope.showPager = ->
+				return scope.totalPages >= 1 && scope.tablePager
+
+			scope.search = ->
+				scope.currentPage = 1
+				scope.sortTable()
 
 			scope.getSortedClass = (column) ->
 				sort = scope.sort
@@ -67,17 +75,18 @@ angular.module('sling.ui')
 
 
 			scope.previousPage = ->
-				scope.currentPage-- if scope.currentPage > 0
+				scope.currentPage-- if scope.currentPage > 1
 				setPagerState()
 
 
 			setPagerState = ->
+				console.log 'currentPage:', scope.currentPage
 				if scope.currentPage == scope.totalPages
 						$(elem).find('.next').addClass('disabled')
 					else
 						$(elem).find('.next').removeClass('disabled')
 
-					if scope.currentPage == 0
+					if scope.currentPage == 1
 						$(elem).find('.previous').addClass('disabled')
 					else
 						$(elem).find('.previous').removeClass('disabled')
@@ -86,8 +95,10 @@ angular.module('sling.ui')
 				if newVal
 					scope.rawData = angular.copy(newVal)
 
-					scope.totalPages = Math.ceil(scope.rawData.length / scope.itemsPerPage) - 1
+					scope.totalPages = Math.ceil(scope.rawData.length / scope.itemsPerPage)
+					console.log 'total pages:', scope.rawData.length, scope.itemsPerPage, scope.totalPages
 					scope.$watch 'currentPage', ->
 						scope.sortTable()
+						setPagerState()
 
 	}

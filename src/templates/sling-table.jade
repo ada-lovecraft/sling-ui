@@ -1,16 +1,23 @@
-div(ng-show="tablePager")
-	ul.pager
-		li.previous.disabled
-			a.sling-interactable(ng-click="previousPage()") &larr; Previous
-		li.next 
-			a.sling-interactable(ng-click="nextPage()") &rarr; Next
-table.table
-	thead
-		tr
-			th(ng-repeat="column in tableConfig.order", ng-click='switchColumn(column)',ng-class="getSortedClass(column)", class="{{tableConfig.display[column].className}} sling-interactable"){{tableConfig.display[column].label}}
-				span(ng-show="sort.column == column")
-					.glyphicon.glyphicon-chevron-up(ng-hide="sort.descending")
-					.glyphicon.glyphicon-chevron-down(ng-show="sort.descending")
-	tbody
-		tr(ng-repeat="data in pagedData")
-			td(ng-repeat="column in tableConfig.order", ng-class="getSortedClass(column)") {{ data[column] }}
+.sling-table-container
+	div(ng-show="showPager()")
+		ul.pager
+			li.previous.disabled
+				a.sling-interactable(ng-click="previousPage()") &larr; Previous
+			li.next.disabled 
+				a.sling-interactable(ng-click="nextPage()") &rarr; Next
+	div(ng-show="tableSearch")
+		form.form-inline
+			.input-group
+				span.input-group-addon
+					.glyphicon.glyphicon-search
+				input.form-control.sling-table-search(type="search", ng-keyup="search()", ng-model="slingSearch",placeholder="Search Table...")
+	table.table
+		thead
+			tr
+				th(ng-repeat="column in tableConfig.order", ng-click='switchColumn(column)',ng-class="getSortedClass(column)", class="{{tableConfig.display[column].className}} sling-interactable"){{tableConfig.display[column].label}}
+					span(ng-show="sort.column == column")
+						.glyphicon.glyphicon-chevron-up(ng-hide="sort.descending")
+						.glyphicon.glyphicon-chevron-down(ng-show="sort.descending")
+		tbody
+			tr(ng-repeat="data in pagedData")
+				td(ng-repeat="column in tableConfig.order", ng-class="getSortedClass(column)") {{ data[column] }}

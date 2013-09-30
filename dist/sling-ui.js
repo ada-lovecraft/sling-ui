@@ -2,26 +2,27 @@ angular.module('sling.ui.templates', []);
 
 angular.module('sling.ui', ['sling.ui.templates']);
 
-angular.module('sling.ui').filter('slice', function() {
+;angular.module('sling.ui').filter('slice', function() {
   return function(arr, start, end) {
     return arr.slice(start, end);
   };
 });
 
-angular.module('sling.ui').directive('slingTable', function($filter) {
+;angular.module('sling.ui').directive('slingTable', function($filter) {
   return {
     restrict: 'ACE',
     scope: {
       tableData: '=',
       tableConfig: '=',
       tablePager: '=',
+      tableSearch: '=',
       itemsPerPage: '='
     },
     templateUrl: '/sling.ui/templates/sling-table.html',
     transclude: true,
     link: function(scope, elem, attrs) {
       var setPagerState;
-      scope.currentPage = 0;
+      scope.currentPage = 1;
       
       
       scope.pagedData = null;
@@ -40,17 +41,17 @@ angular.module('sling.ui').directive('slingTable', function($filter) {
           sort.column = column;
           sort.descending = false;
         }
-        scope.currentPage = 0;
+        scope.currentPage = 1;
         return scope.sortTable();
       };
       scope.sortTable = function() {
         var end, sort, start;
         sort = scope.sort;
         scope.rawData = $filter('orderBy')(scope.rawData, sort.column, sort.descending);
-        start = scope.currentPage * scope.itemsPerPage;
+        start = (scope.currentPage - 1) * scope.itemsPerPage;
         end = start + scope.itemsPerPage;
         
-        scope.pagedData = $filter('slice')(angular.copy(scope.rawData), start, end);
+        scope.pagedData = $filter('slice')($filter('filter')(angular.copy(scope.rawData), scope.slingSearch), start, end);
         
         angular.forEach(scope.pagedData, function(val, index, collection) {
           return angular.forEach(val, function(v, i, c) {
@@ -61,6 +62,13 @@ angular.module('sling.ui').directive('slingTable', function($filter) {
           });
         }, scope.pagedData);
         return ;
+      };
+      scope.showPager = function() {
+        return scope.totalPages >= 1 && scope.tablePager;
+      };
+      scope.search = function() {
+        scope.currentPage = 1;
+        return scope.sortTable();
       };
       scope.getSortedClass = function(column) {
         var sort;
@@ -78,18 +86,19 @@ angular.module('sling.ui').directive('slingTable', function($filter) {
         return setPagerState();
       };
       scope.previousPage = function() {
-        if (scope.currentPage > 0) {
+        if (scope.currentPage > 1) {
           scope.currentPage--;
         }
         return setPagerState();
       };
       setPagerState = function() {
+        
         if (scope.currentPage === scope.totalPages) {
           $(elem).find('.next').addClass('disabled');
         } else {
           $(elem).find('.next').removeClass('disabled');
         }
-        if (scope.currentPage === 0) {
+        if (scope.currentPage === 1) {
           return $(elem).find('.previous').addClass('disabled');
         } else {
           return $(elem).find('.previous').removeClass('disabled');
@@ -98,9 +107,11 @@ angular.module('sling.ui').directive('slingTable', function($filter) {
       return scope.$watch('tableData', function(newVal) {
         if (newVal) {
           scope.rawData = angular.copy(newVal);
-          scope.totalPages = Math.ceil(scope.rawData.length / scope.itemsPerPage) - 1;
+          scope.totalPages = Math.ceil(scope.rawData.length / scope.itemsPerPage);
+          
           return scope.$watch('currentPage', function() {
-            return scope.sortTable();
+            scope.sortTable();
+            return setPagerState();
           });
         }
       });
@@ -108,3 +119,4 @@ angular.module('sling.ui').directive('slingTable', function($filter) {
   };
 });
 
+;

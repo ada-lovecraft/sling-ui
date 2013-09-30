@@ -13,7 +13,7 @@ exports.config =
       joinTo:
         'sling-ui-dev.js': /^src/
       order:
-        before: ['src/scripts/aingular.coffee']
+        before: ['src/scripts/sling-ui.coffee']
 
     stylesheets:
       joinTo:
@@ -36,5 +36,4 @@ exports.config =
     afterBrunch: [ 
       "groundskeeper < dist/sling-ui-dev.js > dist/sling-ui.js"
     ]
-
   minify: true
