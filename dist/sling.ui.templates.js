@@ -27,7 +27,7 @@ angular.module('sling.ui.templates')
 '    </thead>',
 '    <tbody>',
 '      <tr ng-repeat="data in pagedData">',
-'        <td ng-repeat="column in tableConfig.order" ng-class="getSortedClass(column)">{{ data[column] }}</td>',
+'        <td ng-repeat="column in tableConfig.order" ng-class="getSortedClass(column)" ng-bind-html="data[column]"></td>',
 '      </tr>',
 '    </tbody>',
 '  </table>',

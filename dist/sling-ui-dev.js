@@ -1,6 +1,6 @@
 angular.module('sling.ui.templates', []);
 
-angular.module('sling.ui', ['sling.ui.templates']);
+angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
 
 ;angular.module('sling.ui').filter('slice', function() {
   return function(arr, start, end) {
@@ -57,7 +57,7 @@ angular.module('sling.ui', ['sling.ui.templates']);
           return angular.forEach(val, function(v, i, c) {
             if (angular.isDefined(scope.tableConfig.display[i].format)) {
               console.log('found format function');
-              return collection[index][i] = scope.tableConfig.display[i].format(scope.pagedData[index][i]);
+              return collection[index][i] = scope.tableConfig.display[i].format(scope.pagedData[index][i], scope.pagedData[index]);
             }
           });
         }, scope.pagedData);
