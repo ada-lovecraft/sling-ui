@@ -54,29 +54,15 @@ angular.module('sling.ui')
 				console.log 'pagedData:', scope.pagedData
 
 
-			scope.showPager = ->
-				return scope.totalPages >= 1 && scope.tablePager
-
-			scope.search = ->
-				scope.currentPage = 1
-				scope.sortTable()
-
-			scope.getSortedClass = (column) ->
-				sort = scope.sort
-				if column == sort.column
-					return 'sling-sorted'
-				else
-					return ''
-
-			scope.nextPage = ->
-				scope.currentPage++ if scope.currentPage < scope.totalPages
-				setPagerState()
-				
-
-
-			scope.previousPage = ->
-				scope.currentPage-- if scope.currentPage > 1
-				setPagerState()
+			scope.pager =
+				showPager: ->
+					return scope.totalPages >= 1 && scope.tablePager
+				nextPage: ->
+					scope.currentPage++ if scope.currentPage < scope.totalPages
+					setPagerState()
+				previousPage: ->
+					scope.currentPage-- if scope.currentPage > 1
+					setPagerState()
 
 
 			setPagerState = ->
@@ -90,6 +76,19 @@ angular.module('sling.ui')
 						$(elem).find('.previous').addClass('disabled')
 					else
 						$(elem).find('.previous').removeClass('disabled')
+
+			scope.search = ->
+				scope.currentPage = 1
+				scope.sortTable()
+
+			scope.getSortedClass = (column) ->
+				sort = scope.sort
+				if column == sort.column
+					return 'sling-sorted'
+				else
+					return ''
+
+			
 
 			scope.$watch 'tableData', (newVal) ->
 				if newVal

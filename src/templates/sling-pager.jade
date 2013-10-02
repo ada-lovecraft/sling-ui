@@ -1,0 +1,6 @@
+div(ng-show="pager.showPager()")
+		ul.pager
+			li.previous.disabled
+				a.sling-interactable(ng-click="pager.previousPage()") &larr; Previous
+			li.next.disabled 
+				a.sling-interactable(ng-click="pager.nextPage()") &rarr; Next

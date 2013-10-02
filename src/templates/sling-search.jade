@@ -1,0 +1,6 @@
+div(ng-show="tableSearch")
+		form.form-inline
+			.input-group
+				span.input-group-addon
+					.glyphicon.glyphicon-search
+				input.form-control.sling-table-search(type="search", ng-keyup="search()", ng-model="slingSearch",placeholder="Search Table...")
