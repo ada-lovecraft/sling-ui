@@ -173,9 +173,13 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         console.log('pagedData:', scope.pagedData);
         angular.forEach(scope.pagedData, function(val, index, collection) {
           return angular.forEach(val, function(v, i, c) {
-            if (angular.isDefined(scope.tableConfig.display[i].format)) {
+            if (_.has(scope.tableConfig.display[i], 'format')) {
               console.log('found format function');
               return collection[index][i] = scope.tableConfig.display[i].format(scope.pagedData[index][i], scope.pagedData[index]);
+            } else if (collection[index][i] !== null) {
+              return collection[index][i] = collection[index][i].toString();
+            } else {
+              return null;
             }
           });
         }, scope.pagedData);

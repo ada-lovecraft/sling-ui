@@ -47,9 +47,13 @@ angular.module('sling.ui')
 				console.log 'pagedData:', scope.pagedData
 				angular.forEach(scope.pagedData, (val,index,collection) ->
 					angular.forEach val, (v, i, c) ->
-						if angular.isDefined(scope.tableConfig.display[i].format)
+						if _.has(scope.tableConfig.display[i],'format')
 							console.log 'found format function'
 							collection[index][i] = scope.tableConfig.display[i].format(scope.pagedData[index][i],scope.pagedData[index])
+						else if collection[index][i] != null
+							collection[index][i] = collection[index][i].toString()
+						else
+							return null
 				,scope.pagedData)
 				console.log 'pagedData:', scope.pagedData
 
