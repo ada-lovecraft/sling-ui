@@ -1,27 +1,5 @@
 angular.module('sling.ui.templates')
 .run([ '$templateCache', function($templateCache) {
-  return $templateCache.put('/sling.ui/templates/sling-pager.html', [
-'',
-'<div ng-show="pager.showPager()">',
-'  <ul class="pager">',
-'    <li class="previous disabled"><a ng-click="pager.previousPage()" class="sling-interactable">&larr; Previous</a></li>',
-'    <li class="next disabled"> <a ng-click="pager.nextPage()" class="sling-interactable">&rarr; Next</a></li>',
-'  </ul>',
-'</div>',''].join("\n"));
-}])
-.run([ '$templateCache', function($templateCache) {
-  return $templateCache.put('/sling.ui/templates/sling-search.html', [
-'',
-'<div ng-show="tableSearch">',
-'  <form class="form-inline">',
-'    <div class="input-group"><span class="input-group-addon">',
-'        <div class="glyphicon glyphicon-search"></div></span>',
-'      <input type="search" ng-keyup="search()" ng-model="slingSearch" placeholder="Search Table..." class="form-control sling-table-search">',
-'    </div>',
-'  </form>',
-'</div>',''].join("\n"));
-}])
-.run([ '$templateCache', function($templateCache) {
   return $templateCache.put('/sling.ui/templates/sling-table.html', [
 '',
 '<div class="sling-table-container">',
@@ -53,5 +31,27 @@ angular.module('sling.ui.templates')
 '      </tr>',
 '    </tbody>',
 '  </table>',
+'</div>',''].join("\n"));
+}])
+.run([ '$templateCache', function($templateCache) {
+  return $templateCache.put('/sling.ui/templates/sling-search.html', [
+'',
+'<div ng-show="tableSearch">',
+'  <form class="form-inline">',
+'    <div class="input-group"><span class="input-group-addon">',
+'        <div class="glyphicon glyphicon-search"></div></span>',
+'      <input type="search" ng-keyup="search()" ng-model="slingSearch" placeholder="Search Table..." class="form-control sling-table-search">',
+'    </div>',
+'  </form>',
+'</div>',''].join("\n"));
+}])
+.run([ '$templateCache', function($templateCache) {
+  return $templateCache.put('/sling.ui/templates/sling-pager.html', [
+'',
+'<div ng-show="pager.showPager()">',
+'  <ul class="pager">',
+'    <li class="previous disabled"><a ng-click="pager.previousPage()" class="sling-interactable">&larr; Previous</a></li>',
+'    <li class="next disabled"> <a ng-click="pager.nextPage()" class="sling-interactable">&rarr; Next</a></li>',
+'  </ul>',
 '</div>',''].join("\n"));
 }]);

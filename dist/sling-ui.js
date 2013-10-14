@@ -65,6 +65,9 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         var end, sort, start;
         sort = scope.sort;
         scope.rawData = $filter('orderBy')(scope.rawData, sort.column, sort.descending);
+        if (typeof scope.rawData === 'object') {
+          scope.rawData = [scope.rawData];
+        }
         start = (scope.currentPage - 1) * scope.itemsPerPage;
         end = start + scope.itemsPerPage;
         if (scope.paged) {
@@ -167,6 +170,9 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         var end, sort, start;
         sort = scope.sort;
         scope.rawData = $filter('orderBy')(scope.rawData, sort.column, sort.descending);
+        if (typeof scope.rawData === 'object') {
+          scope.rawData = [scope.rawData];
+        }
         start = (scope.currentPage - 1) * scope.itemsPerPage;
         end = start + scope.itemsPerPage;
         
