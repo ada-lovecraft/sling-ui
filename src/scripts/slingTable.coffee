@@ -61,7 +61,7 @@ angular.module('sling.ui')
 
 			scope.pager =
 				showPager: ->
-					return scope.totalPages >= 1 && scope.tablePager
+					return scope.totalPages > 1 && scope.tablePager
 				nextPage: ->
 					scope.currentPage++ if scope.currentPage < scope.totalPages
 					setPagerState()

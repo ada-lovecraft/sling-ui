@@ -188,7 +188,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
       };
       scope.pager = {
         showPager: function() {
-          return scope.totalPages >= 1 && scope.tablePager;
+          return scope.totalPages > 1 && scope.tablePager;
         },
         nextPage: function() {
           if (scope.currentPage < scope.totalPages) {
