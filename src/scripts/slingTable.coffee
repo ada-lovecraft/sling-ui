@@ -8,6 +8,7 @@ angular.module('sling.ui')
 			tablePager: '='
 			tableSearch: '='
 			itemsPerPage: '='
+			tableClass: '@'
 		}
 		templateUrl: '/sling.ui/templates/sling-table.html'
 		transclude: true

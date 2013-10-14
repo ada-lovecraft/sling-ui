@@ -1,7 +1,7 @@
 .sling-table-container
 	include sling-pager
 	include sling-search
-	table.table
+	table.table(ng-class="tableClass")
 		thead
 			tr
 				th(ng-repeat="column in tableConfig.order", ng-click='switchColumn(column)',ng-class="getSortedClass(column)", class="{{tableConfig.display[column].className}} sling-interactable"){{tableConfig.display[column].label}}

@@ -52,7 +52,7 @@ angular.module('sling.ui').directive 'slingPowerTable', ($templateCache, $filter
           scope.slingData = $filter('filter')(angular.copy(scope.rawData),scope.slingSearch)
 
       scope.pager.showPager = ->
-        return scope.totalPages >= 1 && scope.paged
+        return scope.totalPages > 1 && scope.paged
 
       scope.search = ->
         scope.currentPage = 1
