@@ -39,7 +39,7 @@ angular.module('sling.ui.templates')
 '      </div>',
 '    </form>',
 '  </div>',
-'  <table class="table">',
+'  <table ng-class="tableClass" class="table">',
 '    <thead>',
 '      <tr>',
 '        <th ng-repeat="column in tableConfig.order" ng-click="switchColumn(column)" ng-class="getSortedClass(column)" class="{{tableConfig.display[column].className}} sling-interactable">{{tableConfig.display[column].label}}<span ng-show="sort.column == column">',

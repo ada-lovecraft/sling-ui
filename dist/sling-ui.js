@@ -74,7 +74,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         }
       };
       scope.pager.showPager = function() {
-        return scope.totalPages >= 1 && scope.paged;
+        return scope.totalPages > 1 && scope.paged;
       };
       scope.search = function() {
         scope.currentPage = 1;
@@ -134,7 +134,8 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
       tableConfig: '=',
       tablePager: '=',
       tableSearch: '=',
-      itemsPerPage: '='
+      itemsPerPage: '=',
+      tableClass: '@'
     },
     templateUrl: '/sling.ui/templates/sling-table.html',
     transclude: true,
