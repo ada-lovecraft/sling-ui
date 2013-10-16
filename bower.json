@@ -1,15 +1,15 @@
 {
   "name": "sling-ui",
   "repo": "codevinsky/sling-ui",
-  "version": "0.2.3",
-  "main": ["dist/sling-ui.js","dist/sling.ui.templates.js","dist/sling-ui.css"],
+  "version": "0.3.0a",
+  "main": ["dist/sling-ui-dev.js","dist/sling.ui.templates.js","dist/sling-ui.css"],
   "ignore": [
     "**/.*",
     "src"
   ], 
   "dependencies": {
   	"lodash": "*",
-  	"angular": "1.2.0-rc.2",
-  	"angular-sanitize": "1.2.0-rc.2"
+  	"angular": "~1.2.0-rc.2",
+  	"angular-sanitize": "~1.2.0-rc.2"
   }
 }

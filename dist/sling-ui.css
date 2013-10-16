@@ -6,4 +6,49 @@
 .sling-interactable {
   cursor: pointer;
 }
+.sling-ahead input[type=text] {
+  font-size: 32px;
+  line-height: 36px;
+  height: 40px;
+}
+.sling-ahead .menu {
+  background-color: #2d2d2d;
+}
+.sling-ahead h3 {
+  width: 125px;
+  margin-top: 0px;
+  font-size: 20px;
+  font-weight: 300;
+  color: #bbbbbb;
+  float: left;
+}
+.sling-ahead ul {
+  background-color: #FFF;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sling-ahead .results {
+  width: 375px;
+  text-align: left;
+  padding: 5px;
+}
+.sling-ahead .results.active {
+  background-color: #2e4f9c;
+}
+.sling-ahead .results.active .name {
+  color: #FFF;
+}
+.sling-ahead .results .name {
+  font-size: 20px;
+  line-height: 30px;
+}
+.sling-ahead .results .city {
+  font-size: 16px;
+  line-height: 20px;
+  color: #999;
+}
+.sling-ahead .results p {
+  margin-bottom: 5px;
+}
 

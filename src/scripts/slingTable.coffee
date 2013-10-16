@@ -41,7 +41,7 @@ angular.module('sling.ui')
 			scope.sortTable = ->
 				sort = scope.sort
 				scope.rawData = $filter('orderBy')(scope.rawData,sort.column,sort.descending)
-				if typeof scope.rawData == 'object'
+				if !_.isArray(scope.rawData)
 					scope.rawData = [scope.rawData]
 				start = (scope.currentPage-1) * scope.itemsPerPage
 				end =  start + scope.itemsPerPage 

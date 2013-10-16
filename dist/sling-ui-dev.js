@@ -2,6 +2,183 @@ angular.module('sling.ui.templates', []);
 
 angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
 
+;angular.module('sling.ui').directive('slingahead', function($timeout) {
+  return {
+    restrict: 'ACE',
+    transclude: true,
+    replace: true,
+    templateUrl: '/sling.ui/templates/sling-ahead.html',
+    scope: {
+      search: '&',
+      select: '&',
+      items: '=',
+      term: '='
+    },
+    controller: function($scope) {
+      $scope.items = [];
+      $scope.hide = false;
+      this.activate = function(item) {
+        $scope.active = item;
+        return console.log('activated', $scope.active);
+      };
+      this.activateNextItem = function() {
+        var index;
+        index = _.indexOf($scope.items, $scope.active);
+        return this.activate($scope.items[(index + 1) % $scope.items.length]);
+      };
+      this.activatePreviousItem = function() {
+        var index;
+        index = _.indexOf($scope.items, $scope.active);
+        if (index === 0) {
+          index = $scope.items.length - 1;
+        } else {
+          index -= 1;
+        }
+        return this.activate($scope.items[index]);
+      };
+      this.isActive = function(item) {
+        return $scope.active === item;
+      };
+      this.select = function() {
+        if ($scope.active) {
+          console.log('controller selected:', $scope.active);
+          $scope.hide = true;
+          $scope.focused = false;
+          $scope.select({
+            item: $scope.active
+          });
+          return $scope.active = null;
+        }
+      };
+      this.selectActive = function() {
+        return this.select($scope.active);
+      };
+      $scope.isVisible = function() {
+        return !$scope.hide && ($scope.focused || $scope.mousedOver);
+      };
+      return $scope.query = function() {
+        console.log('SEARCHING:', $scope.term);
+        $scope.hide = false;
+        return $scope.search({
+          term: $scope.term
+        });
+      };
+    },
+    link: function(scope, element, attrs, controller) {
+      var $input, $list;
+      $input = element.find('form > input');
+      $list = element.find('> div');
+      $input.on('focus', function() {
+        return scope.$apply(function() {
+          return scope.focused = true;
+        });
+      });
+      $input.on('blur', function() {
+        return scope.$apply(function() {
+          return scope.mousedOver = true;
+        });
+      });
+      $input.on('keyup', function(e) {
+        if (e.keyCode === 9 || e.keyCode === 13) {
+          scope.$apply(function() {
+            return controller.selectActive();
+          });
+        }
+        if (e.keyCode === 27) {
+          return scope.$apply(function() {
+            return scope.hide = true;
+          });
+        }
+      });
+      $input.on('keydown', function(e) {
+        if (e.keyCode === 9 || e.keyCode === 13 || e.keydown === 27) {
+          e.preventDefault();
+        }
+        if (e.keyCode === 40) {
+          e.preventDefault();
+          scope.$apply(function() {
+            return controller.activateNextItem();
+          });
+        }
+        if (e.keyCode === 38) {
+          e.preventDefault();
+          return scope.$apply(function() {
+            return controller.activatePreviousItem();
+          });
+        }
+      });
+      $list.on('mouseover', function() {
+        return scope.$apply(function() {
+          return scope.mousedOver = true;
+        });
+      });
+      $list.on('mouseleave', function() {
+        return scope.$apply(function() {
+          return scope.mousedOver = false;
+        });
+      });
+      scope.$watch('items', function(items) {
+        if (items != null ? items.length : void 0) {
+          return controller.activate(items[0]);
+        } else {
+          return controller.activate(null);
+        }
+      });
+      scope.$watch('focused', function(focused) {
+        if (focused) {
+          return $timeout(function() {
+            return $input.focus();
+          }, 0, false);
+        }
+      });
+      return scope.$watch('isVisible()', function(visible) {
+        var height, pos;
+        if (visible) {
+          pos = $input.position();
+          height = $input[0].offsetHeight;
+          return $list.css({
+            top: pos.top + height,
+            left: pos.left,
+            position: 'absolute',
+            display: 'block'
+          });
+        } else {
+          return $list.css('display', 'none');
+        }
+      });
+    }
+  };
+});
+
+app.directive('slingaheadItem', function() {
+  return {
+    require: '^slingahead',
+    link: function(scope, element, attrs, controller) {
+      var item;
+      item = scope.$eval(attrs.slingaheadItem);
+      scope.$watch(function() {
+        return controller.isActive(item);
+      }, function(active) {
+        if (active) {
+          return element.addClass('active');
+        } else {
+          return element.removeClass('active');
+        }
+      });
+      element.bind('mouseenter', function(e) {
+        return scope.$apply(function() {
+          return controller.activate(item);
+        });
+      });
+      return element.bind('click', function(e) {
+        return scope.$apply(function() {
+          return controller.select(item);
+        });
+      });
+    }
+  };
+});
+
 ;angular.module('sling.ui').filter('slice', function() {
   return function(arr, start, end) {
     return arr.slice(start, end);
@@ -65,7 +242,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         var end, sort, start;
         sort = scope.sort;
         scope.rawData = $filter('orderBy')(scope.rawData, sort.column, sort.descending);
-        if (typeof scope.rawData === 'object') {
+        if (!_.isArray(scope.rawData)) {
           scope.rawData = [scope.rawData];
         }
         start = (scope.currentPage - 1) * scope.itemsPerPage;
@@ -170,7 +347,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         var end, sort, start;
         sort = scope.sort;
         scope.rawData = $filter('orderBy')(scope.rawData, sort.column, sort.descending);
-        if (typeof scope.rawData === 'object') {
+        if (!_.isArray(scope.rawData)) {
           scope.rawData = [scope.rawData];
         }
         start = (scope.currentPage - 1) * scope.itemsPerPage;
