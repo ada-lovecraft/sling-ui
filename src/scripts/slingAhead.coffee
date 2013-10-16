@@ -126,7 +126,7 @@ angular.module('sling.ui')
 					$list.css 'display', 'none'
 	}
 
-app.directive 'slingaheadItem', ->
+.directive 'slingaheadItem', ->
 	return {
 		require: '^slingahead'
 		link: (scope, element, attrs, controller) ->

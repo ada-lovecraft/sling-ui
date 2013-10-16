@@ -148,9 +148,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
       });
     }
   };
-});
-
-app.directive('slingaheadItem', function() {
+}).directive('slingaheadItem', function() {
   return {
     require: '^slingahead',
     link: function(scope, element, attrs, controller) {
