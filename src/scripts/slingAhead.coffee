@@ -15,6 +15,8 @@ angular.module('sling.ui')
 		controller: ($scope) ->
 			$scope.items = []
 			$scope.hide = false
+
+			@searchTimeout = null
 			
 			@activate = (item) ->
 				$scope.active = item
@@ -52,9 +54,15 @@ angular.module('sling.ui')
 				return !$scope.hide && ($scope.focused || $scope.mousedOver)
 
 			$scope.query = ->
-				console.log 'SEARCHING:', $scope.term
-				$scope.hide = false
-				$scope.search({term: $scope.term})
+				if $searchTimeout
+					$timout.cancel($searchTimeout)
+					$searchTimeout = null
+
+				$searchTimeout = $timeout =>
+					$scope.hide = false
+					$scope.search({term: $scope.term}) 
+				, 300 
+
 
 		link: (scope, element, attrs, controller) ->
 			$input = element.find 'form > input'
