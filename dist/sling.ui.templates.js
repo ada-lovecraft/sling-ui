@@ -4,7 +4,7 @@ angular.module('sling.ui.templates')
 '',
 '<div class="sling-ahead">',
 '  <form>',
-'    <input type="text" ng-model="term" autocomplete="off" ng-change="query()" class="form-control">',
+'    <input type="text" ng-model="term" autocomplete="off" ng-change="query()" placeholder="{{placeholder}}" class="form-control">',
 '  </form>',
 '  <div ng-transclude></div>',
 '</div>',''].join("\n"));

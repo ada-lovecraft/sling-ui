@@ -12,7 +12,8 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
       search: '&',
       select: '&',
       items: '=',
-      term: '='
+      term: '=',
+      placeholder: '@'
     },
     controller: function($scope) {
       $scope.items = [];

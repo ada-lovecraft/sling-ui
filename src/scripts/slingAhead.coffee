@@ -10,6 +10,7 @@ angular.module('sling.ui')
 			select: '&'
 			items: '='
 			term: '='
+			placeholder: '@'
 
 		controller: ($scope) ->
 			$scope.items = []
