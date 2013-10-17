@@ -55,7 +55,7 @@ angular.module('sling.ui')
 
 			$scope.query = ->
 				if @searchTimeout
-					$timout.cancel(@searchTimeout)
+					$timeout.cancel(@searchTimeout)
 					@searchTimeout = null
 
 				@searchTimeout = $timeout =>
