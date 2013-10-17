@@ -54,11 +54,11 @@ angular.module('sling.ui')
 				return !$scope.hide && ($scope.focused || $scope.mousedOver)
 
 			$scope.query = ->
-				if $searchTimeout
-					$timout.cancel($searchTimeout)
-					$searchTimeout = null
+				if @searchTimeout
+					$timout.cancel(@searchTimeout)
+					@searchTimeout = null
 
-				$searchTimeout = $timeout =>
+				@searchTimeout = $timeout =>
 					$scope.hide = false
 					$scope.search({term: $scope.term}) 
 				, 300 

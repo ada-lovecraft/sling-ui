@@ -59,13 +59,12 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         return !$scope.hide && ($scope.focused || $scope.mousedOver);
       };
       return $scope.query = function() {
-        var $searchTimeout,
-          _this = this;
-        if ($searchTimeout) {
-          $timout.cancel($searchTimeout);
-          $searchTimeout = null;
+        var _this = this;
+        if (this.searchTimeout) {
+          $timout.cancel(this.searchTimeout);
+          this.searchTimeout = null;
         }
-        return $searchTimeout = $timeout(function() {
+        return this.searchTimeout = $timeout(function() {
           $scope.hide = false;
           return $scope.search({
             term: $scope.term
