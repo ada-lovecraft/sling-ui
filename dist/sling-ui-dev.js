@@ -61,7 +61,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
       return $scope.query = function() {
         var _this = this;
         if (this.searchTimeout) {
-          $timout.cancel(this.searchTimeout);
+          $timeout.cancel(this.searchTimeout);
           this.searchTimeout = null;
         }
         return this.searchTimeout = $timeout(function() {
