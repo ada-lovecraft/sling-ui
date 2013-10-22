@@ -20,6 +20,19 @@ angular.module('sling.ui.templates')
 '</div>',''].join("\n"));
 }])
 .run([ '$templateCache', function($templateCache) {
+  return $templateCache.put('/sling.ui/templates/sling-pagination.html', [
+'',
+'<div ng-show="pager.showPager()">',
+'  <ul class="pagination">',
+'    <li ng-click="currentPage = 1" ng-class="{disabled: currentPage == 1}" class="sling-interactable"> <a>{{firstPageLabel}}</a></li>',
+'    <li ng-click="currentPage = currentPage - 1" ng-class="{disabled: currentPage == 1}" class="sling-interactable"> <a>&laquo;</a></li>',
+'    <li ng-repeat="page in pages track by $index" sling-page target-page="page" class="sling-interactable"></li>',
+'    <li ng-click="currentPage = currentPage + 1" ng-class="{disabled: currentPage == totalPages}" class="sling-interactable"> <a>&raquo;</a></li>',
+'    <li ng-click="currentPage = totalPages" ng-class="{disabled: currentPage == totalPages}" class="sling-interactable"><a>{{lastPageLabel}}</a></li>',
+'  </ul>',
+'</div>',''].join("\n"));
+}])
+.run([ '$templateCache', function($templateCache) {
   return $templateCache.put('/sling.ui/templates/sling-search.html', [
 '',
 '<div ng-show="tableSearch">',

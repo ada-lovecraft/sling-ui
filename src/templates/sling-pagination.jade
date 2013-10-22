@@ -1,0 +1,11 @@
+div(ng-show="pager.showPager()")
+		ul.pagination
+			li.sling-interactable(ng-click="currentPage = 1",ng-class="{disabled: currentPage == 1}") 
+				a {{firstPageLabel}}
+			li.sling-interactable(ng-click="currentPage = currentPage - 1",ng-class="{disabled: currentPage == 1}") 
+				a &laquo;
+			li.sling-interactable(ng-repeat="page in pages track by $index", sling-page, target-page="page")
+			li.sling-interactable(ng-click="currentPage = currentPage + 1",ng-class="{disabled: currentPage == totalPages}") 
+				a &raquo;
+			li.sling-interactable(ng-click="currentPage = totalPages",ng-class="{disabled: currentPage == totalPages}")
+				a {{lastPageLabel}}
