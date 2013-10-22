@@ -67,7 +67,7 @@ angular.module('sling.ui').directive 'slingTable', ($templateCache, $filter,$tim
         console.log 'scope.highlightChildNum', scope.highlightChildNum
         if scope.highlightChildNum
           $timeout ->
-            console.log 'selected children:', $(elem).find('td:nth-child(' + scope.highlightChildNum + ')').addClass('sling-sorted')
+            $(elem).find('td:nth-child(' + scope.highlightChildNum + ')').addClass('sling-sorted')
           , 50
 
       scope.pager =

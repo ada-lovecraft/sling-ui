@@ -273,7 +273,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
         
         if (scope.highlightChildNum) {
           return $timeout(function() {
-            return ;
+            return $(elem).find('td:nth-child(' + scope.highlightChildNum + ')').addClass('sling-sorted');
           }, 50);
         }
       };
