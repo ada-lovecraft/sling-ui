@@ -34,12 +34,12 @@ angular.module('sling.ui').directive 'slingTable', ($templateCache, $filter,$tim
     link: (scope, elem, attrs) ->
       console.log 'sling power table recognized'
       scope.model = attrs.slingModel || 'data'
-      scope.itemsPerPage = attrs.itemsPerPage || 10
+      scope.itemsPerPage = parseInt(attrs.itemsPerPage) || 10
       scope.currentPage = 1
       scope.paged = attrs.paged 
       scope.tableSearch = attrs.search
       scope.pages = []
-      scope.pagesToShow = attrs.pagesToShow || 5
+      scope.pagesToShow = parseInt(attrs.pagesToShow) || 5
       scope.firstPageLabel = attrs.firstPageLabel || 'First'
       scope.lastPageLabel = attrs.lastPageLabel || 'Last'
 
