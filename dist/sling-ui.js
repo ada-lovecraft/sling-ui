@@ -196,38 +196,40 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
     restrict: 'ACE',
     scope: true,
     controller: function($scope) {
-      this.changePage = function(page) {
-        return $scope.currentPage = page;
-      };
-      this.firstPageLabel = function() {
-        return $scope.firstPageLabel;
-      };
-      this.lastPageLabel = function() {
-        return $scope.lastPageLabel;
-      };
-      this.getCurrentPage = function() {
-        return $scope.currentPage;
-      };
-      this.getTotalPages = function() {
-        return $scope.totalPages;
-      };
-      this.sort = function(field, childNum) {
-        var sort;
-        sort = $scope.sort;
-        if (sort.field === field) {
-          
-          sort.descending = !sort.descending;
-        } else {
-          sort.field = field;
-          sort.descending = false;
+      return {
+        changePage: function(page) {
+          return $scope.currentPage = page;
+        },
+        firstPageLabel: function() {
+          return $scope.firstPageLabel;
+        },
+        lastPageLabel: function() {
+          return $scope.lastPageLabel;
+        },
+        getCurrentPage: function() {
+          return $scope.currentPage;
+        },
+        getTotalPages: function() {
+          return $scope.totalPages;
+        },
+        sort: function(field, childNum) {
+          var sort;
+          sort = $scope.sort;
+          if (sort.field === field) {
+            
+            sort.descending = !sort.descending;
+          } else {
+            sort.field = field;
+            sort.descending = false;
+          }
+          $scope.currentPage = 1;
+          $scope.highlightChildNum = childNum;
+          $scope.sortTable();
+          return $scope.$broadcast('sling:sortChanged', $scope.sort);
+        },
+        getSort: function(field) {
+          return $scope.sort;
         }
-        $scope.currentPage = 1;
-        $scope.highlightChildNum = childNum;
-        $scope.sortTable();
-        return $scope.$broadcast('sling:sortChanged', $scope.sort);
-      };
-      return this.getSort = function(field) {
-        return $scope.sort;
       };
     },
     link: function(scope, elem, attrs) {

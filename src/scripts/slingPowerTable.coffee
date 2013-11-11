@@ -3,32 +3,34 @@ angular.module('sling.ui').directive 'slingTable', ($templateCache, $filter,$tim
     restrict: 'ACE'
     scope: true
     controller: ($scope) ->
-      @changePage = (page) ->
-        $scope.currentPage = page
-      @firstPageLabel = ->
-        return $scope.firstPageLabel
-      @lastPageLabel = ->
-        return $scope.lastPageLabel
-      @getCurrentPage = ->
-        return $scope.currentPage
-      @getTotalPages = ->
-        return $scope.totalPages
-      @sort = (field, childNum) ->
-        sort = $scope.sort
-        if sort.field == field
-          console.log 'switching to descending'
-          sort.descending = !sort.descending
-        else
-          sort.field = field
-          sort.descending = false
-        
-        $scope.currentPage = 1
-        $scope.highlightChildNum = childNum
-        $scope.sortTable()
-        $scope.$broadcast('sling:sortChanged',$scope.sort)
-        
-      @getSort = (field) ->
-        $scope.sort
+      return {
+        changePage: (page) ->
+          $scope.currentPage = page
+        firstPageLabel:  ->
+          return $scope.firstPageLabel
+        lastPageLabel:  ->
+          return $scope.lastPageLabel
+        getCurrentPage:  ->
+          return $scope.currentPage
+        getTotalPages:  ->
+          return $scope.totalPages
+        sort: (field, childNum) ->
+          sort = $scope.sort
+          if sort.field == field
+            console.log 'switching to descending'
+            sort.descending = !sort.descending
+          else
+            sort.field = field
+            sort.descending = false
+          
+          $scope.currentPage = 1
+          $scope.highlightChildNum = childNum
+          $scope.sortTable()
+          $scope.$broadcast('sling:sortChanged',$scope.sort)
+          
+        getSort:  (field) ->
+          $scope.sort
+      }
 
       
     link: (scope, elem, attrs) ->
