@@ -58,7 +58,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
       $scope.isVisible = function() {
         return !$scope.hide && ($scope.focused || $scope.mousedOver);
       };
-      return $scope.query = function() {
+      $scope.query = function() {
         var _this = this;
         if (this.searchTimeout) {
           $timeout.cancel(this.searchTimeout);
@@ -71,6 +71,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
           });
         }, 300);
       };
+      return this;
     },
     link: function(scope, element, attrs, controller) {
       var $input, $list;

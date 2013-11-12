@@ -63,6 +63,7 @@ angular.module('sling.ui')
 					$scope.search({term: $scope.term}) 
 				, 300 
 
+			return @
 
 		link: (scope, element, attrs, controller) ->
 			$input = element.find 'form > input'
