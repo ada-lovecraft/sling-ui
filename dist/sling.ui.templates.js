@@ -12,7 +12,7 @@ angular.module('sling.ui.templates')
 .run([ '$templateCache', function($templateCache) {
   return $templateCache.put('/sling.ui/templates/sling-pager.html', [
 '',
-'<div ng-show="pager.showPager()">',
+'<div ng-show="pager.showPager()" class="sling-pager">',
 '  <ul class="pager">',
 '    <li class="previous disabled"><a ng-click="pager.previousPage()" class="sling-interactable">&larr; Previous</a></li>',
 '    <li class="next disabled"> <a ng-click="pager.nextPage()" class="sling-interactable">&rarr; Next</a></li>',
@@ -22,7 +22,7 @@ angular.module('sling.ui.templates')
 .run([ '$templateCache', function($templateCache) {
   return $templateCache.put('/sling.ui/templates/sling-pagination.html', [
 '',
-'<div ng-show="pager.showPager()">',
+'<div ng-show="pager.showPager()" class="sling-pagination">',
 '  <ul class="pagination">',
 '    <li ng-click="currentPage = 1" ng-class="{disabled: currentPage == 1}" class="sling-interactable"> <a>{{firstPageLabel}}</a></li>',
 '    <li ng-click="currentPage = currentPage - 1" ng-class="{disabled: currentPage == 1}" class="sling-interactable"> <a>&laquo;</a></li>',
@@ -35,7 +35,7 @@ angular.module('sling.ui.templates')
 .run([ '$templateCache', function($templateCache) {
   return $templateCache.put('/sling.ui/templates/sling-search.html', [
 '',
-'<div ng-show="tableSearch">',
+'<div ng-show="tableSearch" class="sling-search">',
 '  <form class="form-inline">',
 '    <div class="input-group"><span class="input-group-addon">',
 '        <div class="glyphicon glyphicon-search"></div></span>',
@@ -47,14 +47,14 @@ angular.module('sling.ui.templates')
 .run([ '$templateCache', function($templateCache) {
   return $templateCache.put('/sling.ui/templates/sling-table.html', [
 '',
-'<div class="sling-table-container">',
-'  <div ng-show="pager.showPager()">',
+'<div class="sling-table">',
+'  <div ng-show="pager.showPager()" class="sling-pager">',
 '    <ul class="pager">',
 '      <li class="previous disabled"><a ng-click="pager.previousPage()" class="sling-interactable">&larr; Previous</a></li>',
 '      <li class="next disabled"> <a ng-click="pager.nextPage()" class="sling-interactable">&rarr; Next</a></li>',
 '    </ul>',
 '  </div>',
-'  <div ng-show="tableSearch">',
+'  <div ng-show="tableSearch" class="sling-search">',
 '    <form class="form-inline">',
 '      <div class="input-group"><span class="input-group-addon">',
 '          <div class="glyphicon glyphicon-search"></div></span>',

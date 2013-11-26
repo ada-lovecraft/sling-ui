@@ -1,7 +1,7 @@
 angular.module('sling.ui')
 .directive 'slingahead', ($timeout) ->
 	return {
-		restrict: 'ACE'
+		restrict: 'AE'
 		transclude: true
 		replace: true
 		templateUrl: '/sling.ui/templates/sling-ahead.html'

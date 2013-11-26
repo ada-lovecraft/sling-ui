@@ -1,6 +1,6 @@
 angular.module('sling.ui').directive 'slingTable', ($templateCache, $filter,$timeout, $compile) ->
   return {
-    restrict: 'ACE'
+    restrict: 'AE'
     scope: true
     controller: ($scope) ->
       return {

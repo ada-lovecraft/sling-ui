@@ -4,7 +4,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
 
 ;angular.module('sling.ui').directive('slingahead', function($timeout) {
   return {
-    restrict: 'ACE',
+    restrict: 'AE',
     transclude: true,
     replace: true,
     templateUrl: '/sling.ui/templates/sling-ahead.html',
@@ -194,7 +194,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
 
 ;angular.module('sling.ui').directive('slingTable', function($templateCache, $filter, $timeout, $compile) {
   return {
-    restrict: 'ACE',
+    restrict: 'AE',
     scope: true,
     controller: function($scope) {
       return {
