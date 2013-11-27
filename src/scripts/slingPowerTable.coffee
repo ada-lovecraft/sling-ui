@@ -121,6 +121,7 @@ angular.module('sling.ui').directive 'slingTable', ($templateCache, $filter,$tim
             scope.sortTable()
 
             $timeout( setupPagers, 0)
+      , true
   }
 
 .directive 'slingPage', ->
