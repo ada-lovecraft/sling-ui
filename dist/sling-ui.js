@@ -338,7 +338,7 @@ angular.module('sling.ui', ['sling.ui.templates', 'ngSanitize']);
             return $timeout(setupPagers, 0);
           });
         }
-      });
+      }, true);
     }
   };
 }).directive('slingPage', function() {
